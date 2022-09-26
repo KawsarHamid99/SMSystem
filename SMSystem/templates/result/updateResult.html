@@ -5,7 +5,7 @@
   {% if success %}
     <div class="alert alert-success" role="alert">
       The student updated successfully.
-      <a href="{% url 'home' %}" class="alert-link">Go to Home Page.</a>
+      <a href="{% url 'results' students.students_roll %}" class="alert-link">Go to Marks sheet.</a>
     </div>
   {% else %}
     <div class="row justify-content-center">
