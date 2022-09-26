@@ -1,0 +1,88 @@
+{% extends 'academic/base.html' %}
+{% load static %}
+
+<style>
+    @media print{ 
+        /* Hide every other element  */
+        body * { 
+            visibility: hidden;
+        }
+
+        /* Then desplaying the print container element */
+        .print-container, .print-container * {
+            visibility: visible;
+        }
+    }
+
+</style>
+
+{% block content %}
+
+<div class="container-fluid print-container">
+    <h3 class="m-4">Student Result Sheet     <button onclick="window.print();" >Print</button></h3>
+    <div class="row">
+        <div class="col-12">
+            {% if marks %}
+            <div class="card bg-light ms-4 me-4 mb-4">
+                <div class="card-header">Students Records</div>
+                <div class="card-header">
+
+                    <div class="card-header">Students Name: {{info.name}}</div>
+                    <div class="card-header">Students Roll:  {{info.roll}}</div>
+                    <div class="card-header">Students GPA: {{gpa}}  </div>
+                </div>
+                
+                <div class="card-body">
+                  <p class="card-text">
+                    <div class="table-responsive">
+
+                        <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                
+                                <th scope="col">Class</th>
+                                <th scope="col">Subject</th>
+                                <th scope="col">Subject Code</th>
+                                <th scope="col">Marks</th>
+                                
+                                <th scope="col">Grade</th>
+                                <th scope="col">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for marks in marks%}
+                              <tr>
+                                <th>{{marks.students_class}}</th>
+                                <th>{{marks.student_subject}}</th>
+                                <th>{{marks.student_subjectCode}}</th>
+                                <td>{{marks.subject_marks}}</td>
+                                <td>{{marks.subject_grade}}</td>
+
+                                <td>
+                                  <!---edit page-->
+                                  <a class="btn btn-warning me-1" href="{% url 'resultEdit' marks.student_subjectCode marks.students_roll %}">
+                                    <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                                  </a>
+
+                                  
+
+                                  <!-- Modal - Delete Student -->
+                                  
+                                
+                                </td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                    </div>
+                  </p>
+                </div>
+              </div>
+            {% else %}
+            <h5 class="alert alert-primary ms-4 me-4" >No Students Records</h5>
+            {% endif %}
+        </div>
+    </div>
+  </div>
+
+{% endblock content %}
